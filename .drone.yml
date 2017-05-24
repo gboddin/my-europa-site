@@ -32,14 +32,3 @@ pipeline:
     commands:
       - ./bin/phing install-dev -D'drupal.db.host'='mysql' -D'drupal.db.name'=database
     
-  reset-perms:
-    image: fpfis/php56
-    environment:
-      - DOCUMENT_ROOT=/test/ssk
-    commands:
-      - ls -lha '/test/ssk'
-      - echo 'Reseting workspace permissions ...'
-      - /run.sh id
-      - chown web:web . -R
-    when:
-      status:  [ failure, success ]
