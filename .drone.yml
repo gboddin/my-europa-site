@@ -33,8 +33,7 @@ pipeline:
   build-dev:
     image: fpfis/php56-dev
     commands:
-      - ./bin/phing build-dev -D behat.base_url='http://webL:8080' -D'behat.wd_host'='http://selenium:4444/wd/hub' -D'behat.browser_name'='chrome' -D'composer.bin'=$(which composer)
-
+      - ./bin/phing build-dev -D behat.base_url='http://web:8080' -D'behat.wd_host'='http://selenium:4444/wd/hub' -D'behat.browser_name'='chrome' -D'composer.bin'=$(which composer)
   install:
     image: fpfis/php56-dev
     commands:
