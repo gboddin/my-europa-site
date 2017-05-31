@@ -26,7 +26,7 @@ pipeline:
     image: fpfis/php56-dev
     commands:
       - php --version
-      - composer install --prefer-dist
+      - composer install
 
   build-dev:
     image: fpfis/php56-dev
