@@ -124,6 +124,8 @@
                     <token key="project.code.dir" value="${project.code.dir}" />
                     <token key="drupal.site.dir" value="${drupal.site.dir}" />
                     <token key="behat.base_url" value="${behat.base_url}" />
+                    <token key="behat.browse_name" value="${behat.browse_name}" />
+                    <token key="behat.wd_host" value="${behat.wd_host}" />
                     <token key="behat.formatter.name" value="${behat.formatter.name}" />
                 </replacetokens>
             </filterchain>

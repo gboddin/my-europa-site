@@ -9,20 +9,22 @@ services:
      - DOCUMENT_ROOT=/test/ssk
   mysql:
     image: fpfis/mysql56
-#  selenium:
-#    image: selenium/standalone-chrome
+  selenium:
+    image: selenium/standalone-chrome
 #  solr:
 #    image: fpfis/solr5
 
 pipeline:
 
   prepare-mysql:
+    group: prepare
     image: fpfis/mysql56
     commands:
       - sleep 5
       - mysqladmin -h mysql -uroot create database
 
   prepare-php:
+    group: prepare
     image: fpfis/php56-dev
     commands:
       - php --version
@@ -31,12 +33,17 @@ pipeline:
   build-dev:
     image: fpfis/php56-dev
     commands:
-      - ./bin/phing build-dev -D'behat.wd_host.url'='http://selenium:4444/wd/hub' -D'behat.browser.name'='chrome' -D'composer.bin'=$(which composer)
+      - ./bin/phing build-dev -D'behat.wd_host'='http://selenium:4444/wd/hub' -D'behat.browser_name'='chrome' -D'composer.bin'=$(which composer)
 
   install:
     image: fpfis/php56-dev
     commands:
       - ./bin/phing install-dev -D'drupal.db.host'='mysql' -D'drupal.db.name'=database
+
+  test:
+    image: fpfis/php56-dev
+    commands:
+      - ./bin/phing behat
 
   build-dist:
     image: fpfis/php56-dev
@@ -51,12 +58,9 @@ pipeline:
     files:
       - ${DRONE_REPO_NAME}-${DRONE_TAG}.tar.gz
     checksum:
-      - md5
       - sha1
       - sha256
       - sha512
-      - adler32
-      - crc32
     secrets: [ GITHUB_RELEASE_API_KEY ]
     when:
       event: tag
