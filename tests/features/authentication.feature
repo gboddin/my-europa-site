@@ -6,7 +6,7 @@ Feature: User authentication
 Scenario: Anonymous user can see the user login page
   Given I am not logged in
   When I visit "user"
-  Then I should see the text "ECAS Login"
+  Then I should see the text "EU Login"
   And I should see the text "Username"
   And I should see the text "Password"
   But I should not see the text "Log out"
@@ -15,7 +15,7 @@ Scenario: Anonymous user can see the user login page
 Scenario Outline: Anonymous user cannot access site administration
   Given I am not logged in
   When I go to "<path>"
-  Then I should get an access denied error
+  Then I should see the text "Access denied"
 
   Examples:
   | path                        |
@@ -38,7 +38,7 @@ Scenario Outline: Editors can access certain administration pages
 Scenario Outline: Editors cannot access pages intended for administrators
   Given I am logged in as a user with the "editor" role
   When I go to "<path>"
-  Then I should get an access denied error
+  Then I should see the text "Access denied"
 
   Examples:
   | path                        |
@@ -64,7 +64,7 @@ Scenario Outline: Administrators can access certain administration pages
 Scenario Outline: Administrators should not be able to access technical pages intended for developers
   Given I am logged in as a user with the "administrator" role
   When I go to "<path>"
-  Then I should get an access denied error
+  Then I should see the text "Access denied"
 
   Examples:
   | path                     |

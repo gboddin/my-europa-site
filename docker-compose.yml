@@ -1,0 +1,18 @@
+version: '2'
+services:
+  # centos 6 + httpd + php${FPFIS_PHP_VERSION}
+  web:
+    image: fpfis/php56-dev
+    working_dir: /project
+    environment:
+      - DOCUMENT_ROOT=/project/platform
+    volumes:
+      - .:/project
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+  mysql:
+    image: fpfis/mysql56
+  selenium:
+    image: selenium/standalone-chrome

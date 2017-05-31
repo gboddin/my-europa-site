@@ -19,6 +19,13 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
 
   /**
+   * Todo: fix access denied detection with selenium2.
+   *
+   * Won't fix : https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/141
+   *
+   * We will not be adding this feature to the WebDriver API as it falls outside of our current scope
+   * (emulating user actions).
+   *
    * Checks that a 403 Access Denied error occurred.
    *
    * @Then I should get an access denied error
