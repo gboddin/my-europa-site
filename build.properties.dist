@@ -235,7 +235,7 @@ behat.formatter.name = progress
 
 # Enable strict mode in Behat tests. Will only pass if all tests are explicitly
 # passing.
-behat.options.strict = false
+behat.options.strict = true
 
 # Set verbosity for Behat tests. 0 is completely silent, 1 is normal output, 2
 # shows exception backtraces, 3 shows debugging information.
@@ -250,7 +250,7 @@ behat.browser_name = chrome
 
 # Selenium hub address:
 
-behat.wd_host = http://selenium:4444/wd/hub
+behat.wd_host = http://localhost:4444/wd/hub
 
 # PHP CodeSniffer configuration
 # -----------------------------
