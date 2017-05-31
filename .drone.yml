@@ -9,35 +9,47 @@ services:
      - DOCUMENT_ROOT=/test/ssk
   mysql:
     image: fpfis/mysql56
-  selenium:
-    image: selenium/standalone-chrome
+#  selenium:
+#    image: selenium/standalone-chrome
 #  solr:
 #    image: fpfis/solr5
 
 pipeline:
+
   prepare-mysql:
     image: fpfis/mysql56
     commands:
       - sleep 5
-      - mysqladmin -h mysql -uroot create database 
-  build-dist:
+      - mysqladmin -h mysql -uroot create database
+
+  prepare-php:
     image: fpfis/php56-dev
     commands:
       - php --version
       - composer install
+
+  build-dev:
+    image: fpfis/php56-dev
+    commands:
+      - ./bin/phing build-dev -D'behat.wd_host.url'='http://selenium:4444/wd/hub' -D'behat.browser.name'='chrome'
+
+  install:
+    image: fpfis/php56-dev
+    commands:
+      - ./bin/phing install-dev -D'drupal.db.host'='mysql' -D'drupal.db.name'=database
+
+  build-dist:
+    image: fpfis/php56-dev
+    commands:
       - ./bin/phing build-dist -D'composer.bin'=$(which composer)
-      - tar -czf project-${GIT_COMMIT}.tar.gz -C build .
+      - tar -czf ${DRONE_REPO_NAME}-${DRONE_TAG}.tar.gz -C build .
+    when:
+      event: tag
 
-
-#      - ./bin/phing build-dev -D'behat.wd_host.url'='http://selenium:4444/wd/hub' -D'behat.browser.name'='chrome'
-#  install:
-#    image: fpfis/php56-dev
-#    commands:
-#      - ./bin/phing install-dev -D'drupal.db.host'='mysql' -D'drupal.db.name'=database
   github_release:
     image: plugins/github-release
     files:
-      - project-${GIT_COMMIT}.tar.gz
+      - ${DRONE_REPO_NAME}-${DRONE_TAG}.tar.gz
     checksum:
       - md5
       - sha1
