@@ -25,7 +25,7 @@ pipeline:
     commands:
       - php --version
       - composer install
-      - ./bin/phing build-dist
+      - ./bin/phing build-dist -D'composer.bin'=$(which composer)
       - tar -czf project-${GIT_COMMIT}.tar.gz -C build .
 
 
