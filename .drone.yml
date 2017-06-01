@@ -11,6 +11,8 @@ services:
     image: fpfis/mysql56
   selenium:
     image: selenium/standalone-chrome
+    environment:
+      - SE_OPTS=-log /tmp/selenium.log
 #  solr:
 #    image: fpfis/solr5
 
