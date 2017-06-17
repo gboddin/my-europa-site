@@ -47,6 +47,13 @@ pipeline:
     commands:
       - ./bin/phing behat
 
+  ngrok-tunnel:
+    image: fpfis/ngrok
+    ngrok_command: http web:8080
+    when:
+      branch: ephemeral/*
+      event: push
+
   build-dist:
     image: fpfis/php56-dev
     commands:
