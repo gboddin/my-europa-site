@@ -49,7 +49,7 @@ pipeline:
 
   ngrok-tunnel:
     image: fpfis/ngrok
-    ngrok_command: http web:8080 --log stdout --log-level debug|grep "tunSess.*ngrok\.io"
+    ngrok_command: http web:8080
     when:
       branch: ephemeral/*
       event: push
