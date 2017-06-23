@@ -10,6 +10,8 @@ services:
      - DOCUMENT_ROOT=/test/ssk/platform
   mysql:
     image: fpfis/mysql56
+  ecas:
+    image: fpfis-acpcloud622hotmail.azurecr.io/ecas
   selenium:
     image: selenium/standalone-chrome
     environment:
