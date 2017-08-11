@@ -50,7 +50,7 @@ pipeline:
   cmsmap-scan:
     image: fpfis/drone-plugin-cmsmap
     target: http://web:8080
-    options: -t 2
+    options: -T 2
 
   ngrok-tunnel:
     image: fpfis/ngrok
