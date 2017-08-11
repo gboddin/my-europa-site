@@ -47,6 +47,11 @@ pipeline:
     commands:
       - ./bin/phing behat
 
+  cmsmap-scan:
+    image: fpfis/drone-plugin-cmsmap
+    target: http://web:8080
+    options: -t 2
+
   ngrok-tunnel:
     image: fpfis/ngrok
     ngrok_command: http web:8080
